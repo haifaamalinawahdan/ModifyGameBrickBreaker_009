@@ -55,6 +55,9 @@ class Ball(GameObject):
         for game_object in game_objects:
             if isinstance(game_object, Brick):
                 game_object.hit()
+                game = self.canvas.master
+                game.score += 10
+                game.update_score_text()
 
 
 class Paddle(GameObject):
@@ -103,12 +106,13 @@ class Brick(GameObject):
         else:
             self.canvas.itemconfig(self.item,
                                    fill=Brick.COLORS[self.hits])
-
+            
 
 class Game(tk.Frame):
     def __init__(self, master):
         super(Game, self).__init__(master)
         self.lives = 5
+        self.score = 0
         self.width = 610
         self.height = 400
         self.canvas = tk.Canvas(self, bg='#15152b',
@@ -129,6 +133,7 @@ class Game(tk.Frame):
             self.add_brick(x + 37.5, 120, 1)
 
         self.hud = None
+        self.score_text = None
         self.setup_game()
         self.canvas.focus_set()
         self.canvas.bind('<Left>',
@@ -139,6 +144,7 @@ class Game(tk.Frame):
     def setup_game(self):
            self.add_ball()
            self.update_lives_text()
+           self.update_score_text()
            self.text = self.draw_text(300, 200,
                                       'Press Space to start')
            self.canvas.bind('<space>', lambda _: self.start_game())
@@ -167,6 +173,13 @@ class Game(tk.Frame):
             self.hud = self.draw_text(50, 20, text, 15)
         else:
             self.canvas.itemconfig(self.hud, text=text)
+
+    def update_score_text(self):
+        text = 'Score: %s' % self.score
+        if self.score_text is None:
+            self.score_text = self.draw_text(550, 20, text, 15)
+        else:
+            self.canvas.itemconfig(self.score_text, text=text)        
 
     def start_game(self):
         self.canvas.unbind('<space>')
