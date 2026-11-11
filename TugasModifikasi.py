@@ -23,7 +23,7 @@ class Ball(GameObject):
         self.speed = 10
         item = canvas.create_oval(x-self.radius, y-self.radius,
                                   x+self.radius, y+self.radius,
-                                  fill='white')
+                                  fill='#00ffff')
         super(Ball, self).__init__(canvas, item)
 
     def update(self):
@@ -66,7 +66,7 @@ class Paddle(GameObject):
                                        y - self.height / 2,
                                        x + self.width / 2,
                                        y + self.height / 2,
-                                       fill='yellow')
+                                       fill='#a855f7')
         super(Paddle, self).__init__(canvas, item)
 
     def set_ball(self, ball):
@@ -82,7 +82,7 @@ class Paddle(GameObject):
 
 
 class Brick(GameObject):
-    COLORS = {1: '#e74c3c', 2: '#3498db', 3: '#222222'}
+    COLORS = {1: '#ff4d6d',2: '#00b4d8',3: '#a855f7'}
 
     def __init__(self, canvas, x, y, hits):
         self.width = 75
@@ -111,7 +111,7 @@ class Game(tk.Frame):
         self.lives = 3
         self.width = 610
         self.height = 400
-        self.canvas = tk.Canvas(self, bg='#aaaaff',
+        self.canvas = tk.Canvas(self, bg='#15152b',
                                 width=self.width,
                                 height=self.height,)
         self.canvas.pack()
@@ -156,7 +156,8 @@ class Game(tk.Frame):
     def draw_text(self, x, y, text, size='40'):
         font = ('Forte', size)
         return self.canvas.create_text(x, y, text=text,
-                                       font=font)
+                               font=font,
+                               fill='yellow')
 
     def update_lives_text(self):
         text = 'Lives: %s' % self.lives
