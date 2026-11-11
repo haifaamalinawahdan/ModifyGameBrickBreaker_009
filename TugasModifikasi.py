@@ -59,7 +59,7 @@ class Ball(GameObject):
 
 class Paddle(GameObject):
     def __init__(self, canvas, x, y):
-        self.width = 80
+        self.width = 120
         self.height = 10
         self.ball = None
         item = canvas.create_rectangle(x - self.width / 2,
@@ -132,9 +132,9 @@ class Game(tk.Frame):
         self.setup_game()
         self.canvas.focus_set()
         self.canvas.bind('<Left>',
-                         lambda _: self.paddle.move(-10))
+                         lambda _: self.paddle.move(-20))
         self.canvas.bind('<Right>',
-                         lambda _: self.paddle.move(10))
+                         lambda _: self.paddle.move(20))
 
     def setup_game(self):
            self.add_ball()
